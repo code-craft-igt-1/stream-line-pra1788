@@ -26,7 +26,7 @@ jobs:
         cmake --build build
       
     - name: run
-      run: build/test-sender
+      run: build/test-stream-line
 
     - name: collect coverage
       run: gcovr --gcov-exclude=".*test.*" -r . --html --html-details -o coverage.html --print-summary
