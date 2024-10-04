@@ -33,11 +33,17 @@ void Processor::printMinMax() const {
 }
 
 void Processor::printSimpleMovingAverage() const {
-    if (lastValues.size() < 1) return;
+    if (lastValues.empty()) return;
 
-    float sum = std::accumulate(lastValues.front(), lastValues.back(), 0.0f);
+    float sum = 0.0f;
+    std::queue<float> tempQueue = lastValues;  // Copy the queue to avoid modifying the original
+
+    while (!tempQueue.empty()) {
+        sum += tempQueue.front();
+        tempQueue.pop();
+    }
+
     float average = sum / lastValues.size();
-
     std::cout << "SMA (last 5 values): " << average << std::endl;
 }
 
