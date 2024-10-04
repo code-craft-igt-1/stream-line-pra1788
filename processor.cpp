@@ -35,15 +35,7 @@ void Processor::printMinMax() const {
 void Processor::printSimpleMovingAverage() const {
     if (lastValues.empty()) return;
 
-    float sum = 0.0f;
-    std::queue<float> tempQueue = lastValues;  // Copy the queue to avoid modifying the original
-
-    while (!tempQueue.empty()) {
-        sum += tempQueue.front();
-        tempQueue.pop();
-    }
-
-    float average = sum / lastValues.size();
+    float average = calculateSum() / lastValues.size();
     std::cout << "SMA (last 5 values): " << average << std::endl;
 }
 
@@ -52,10 +44,15 @@ float Processor::getMinValue() const { return minValue; }
 float Processor::getMaxValue() const { return maxValue; }
 
 float Processor::getSimpleMovingAverage() const {
-    if (lastValues.empty()) return 0.0f; // Return 0 if the queue is empty
+    if (lastValues.empty()) return 0.0f;
 
+    return calculateSum() / lastValues.size();
+}
+
+// New helper function to sum values in lastValues
+float Processor::calculateSum() const {
     float sum = 0.0f;
-    std::queue<float> tempQueue = lastValues; // Create a temporary copy of the queue
+    std::queue<float> tempQueue = lastValues;  //  Create a temporary copy of the queue
 
     // Sum all values in the temporary queue
     while (!tempQueue.empty()) {
@@ -63,6 +60,5 @@ float Processor::getSimpleMovingAverage() const {
         tempQueue.pop();
     }
 
-    return sum / lastValues.size(); // Calculate the average
+    return sum;  //  Return the computed sum
 }
-

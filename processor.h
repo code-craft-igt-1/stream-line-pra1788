@@ -26,6 +26,7 @@ class Processor {
 
     void printMinMax() const;
     void printSimpleMovingAverage() const;
+    float calculateSum() const;
 };
 
 #endif  // PROCESSOR_H_
