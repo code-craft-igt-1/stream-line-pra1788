@@ -52,7 +52,17 @@ float Processor::getMinValue() const { return minValue; }
 float Processor::getMaxValue() const { return maxValue; }
 
 float Processor::getSimpleMovingAverage() const {
-    if (lastValues.empty()) return 0.0f;
-    float sum = std::accumulate(lastValues.front(), lastValues.back(), 0.0f);
-    return sum / lastValues.size();
+    if (lastValues.empty()) return 0.0f; // Return 0 if the queue is empty
+
+    float sum = 0.0f;
+    std::queue<float> tempQueue = lastValues; // Create a temporary copy of the queue
+
+    // Sum all values in the temporary queue
+    while (!tempQueue.empty()) {
+        sum += tempQueue.front();
+        tempQueue.pop();
+    }
+
+    return sum / lastValues.size(); // Calculate the average
 }
+
