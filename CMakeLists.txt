@@ -19,20 +19,14 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-# List all source files explicitly
-set(SOURCES
-    sender.cpp
+file(GLOB SOURCES "*.cpp")
+add_executable(
+    test-stream-line
+  ${SOURCES}
 )
 
-# Create a library from the sender source file
-add_library(sender_lib STATIC ${SOURCES})
-
-# Add the test executable
-add_executable(test-sender test-sender.cpp)
-
-# Link the test executable with GoogleTest and the Sender library
-target_link_libraries(test-sender GTest::gtest_main sender_lib)
+target_link_libraries(test-stream-line GTest::gtest_main)
 
 # Discover tests
 include(GoogleTest)
-gtest_discover_tests(test-sender)
+gtest_discover_tests(test-stream-line)
