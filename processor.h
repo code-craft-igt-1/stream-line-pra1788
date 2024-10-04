@@ -1,3 +1,6 @@
+#ifndef PROCESSOR_H_
+#define PROCESSOR_H_
+
 #include <iostream>
 #include <queue>
 #include <algorithm>
@@ -24,3 +27,5 @@ class Processor {
     void printMinMax() const;
     void printSimpleMovingAverage() const;
 };
+
+#endif  // PROCESSOR_H_

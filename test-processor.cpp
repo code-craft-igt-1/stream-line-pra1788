@@ -14,13 +14,13 @@ class ProcessorTest : public ::testing::Test {
     }
 
     // Utility function to simulate input for Processor
-    void simulateInput(Processor& processor, const std::vector<float>& testData) {
+    void simulateInput(Processor* processor, const std::vector<float>& testData) {
         std::stringstream input;
         for (float value : testData) {
             input << value << " ";
         }
         std::cin.rdbuf(input.rdbuf());  // Redirect input stream for testing
-        processor.processStream();
+        processor->processStream();
     }
 };
 
@@ -29,7 +29,7 @@ TEST_F(ProcessorTest, MinMaxTest) {
     Processor processor;
     std::vector<float> testData = { 30.0, 25.0, 22.0, 35.0, 20.0 };
 
-    simulateInput(processor, testData);
+    simulateInput(&processor, testData);
 
     EXPECT_EQ(processor.getMinValue(), 20.0);  // Assert that min value is correct
     EXPECT_EQ(processor.getMaxValue(), 35.0);  // Assert that max value is correct
@@ -40,7 +40,7 @@ TEST_F(ProcessorTest, SMATest) {
     Processor processor;
     std::vector<float> testData = { 30.0, 25.0, 22.0, 35.0, 20.0, 28.0 };
 
-    simulateInput(processor, testData);
+    simulateInput(&processor, testData);
 
     EXPECT_FLOAT_EQ(processor.getSimpleMovingAverage(), 26.0);  // Assert that SMA is correct
 }
